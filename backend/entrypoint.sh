@@ -8,6 +8,9 @@ if [ ! -f "$LOG_FILE" ]; then
 fi
 if [ "$ACCEPT_EULA" == "true" ] && [ "$ACCEPT_GDPR" == "true" ] && [ "$ACCEPT_TERMS" == "true" ]; then
   echo "All required agreements accepted. Starting speedtest script."
+  if [ -z "$SERVER_ID" ]; then
+    echo "No SERVER_ID provided. Running speedtest with default server selection."
+  fi
   ./speedtest.sh
 else
   echo "You must accept the EULA, GDPR, and Terms to proceed. The links to those respective documents are below."
