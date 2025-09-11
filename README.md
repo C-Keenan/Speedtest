@@ -12,6 +12,6 @@ I am self-taught and still learning to code and I do utilize AI a bit to trouble
 
 ## Tested Run Scenarios
 - Docker: Tested, Running
-- WSL - Ubuntu- 24.04: Tested, Running
+- WSL - Ubuntu - 24.04: Tested, Running
 - Bare Metal: Un-tested
 - Kubernetes: Un-tested
