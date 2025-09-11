@@ -23,5 +23,11 @@ while true; do
   
   echo "Current time: $(date). Sleeping for $sleep_seconds seconds to sync with top of hour."
   sleep "$sleep_seconds"
-  speedtest  --accept-license --accept-gdpr -s "$SERVER_ID" --format=csv | tail -n 1 >> "$LOG_FILE"
+  if [ -z "$SERVER_ID" ]; then
+    echo "No SERVER_ID provided. Running speedtest with default server selection."
+    speedtest  --accept-license --accept-gdpr --format=csv | tail -n 1 >> "$LOG_FILE"
+  else
+    echo "Using SERVER_ID: $SERVER_ID for speedtest."
+    speedtest  --accept-license --accept-gdpr -s "$SERVER_ID" --format=csv | tail -n 1 >> "$LOG_FILE"
+  fi
 done
