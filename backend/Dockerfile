@@ -4,8 +4,8 @@ RUN apt update && apt install -y apt-utils && apt upgrade -y && apt autoremove -
 RUN apt install -y ca-certificates net-tools openssl iputils-ping
 RUN mkdir -p /app/log
 COPY ./bin/speedtest /usr/local/bin/speedtest
-COPY ./speedtest.5 /usr/local/bin/speedtest.5
-COPY ./speedtest.md /usr/local/bin/speedtest.md
+COPY ./bin/speedtest.5 /usr/local/bin/speedtest.5
+COPY ./bin/speedtest.md /usr/local/bin/speedtest.md
 RUN chmod +x /usr/local/bin/speedtest
 COPY ./entrypoint.sh /app/entrypoint.sh
 COPY ./speedtest.sh /app/speedtest.sh

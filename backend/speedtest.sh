@@ -17,7 +17,7 @@ while true; do
   current_minute=$(date +"%M")
   current_second=$(date +"%S")
   
-  total_seconds_in_hour=$(( (current_minute * 60) + current_second ))
+  total_seconds_in_hour=$(( (10#$current_minute * 60) + 10#$current_second ))
   
   sleep_seconds=$(( 3600 - total_seconds_in_hour ))
   
