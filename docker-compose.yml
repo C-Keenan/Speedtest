@@ -1,0 +1,25 @@
+services:
+  speedtest-display:
+    build:
+      context: ./display
+      dockerfile: ./Dockerfile
+    image: therenoth234/speedtest-display:latest
+    env_file: ./.env
+    ports:
+      - "8080:8080"
+    volumes:
+      - /mnt/g/developement/speedtest/log:/app/log
+    depends_on:
+      - speedtest-backend
+    restart: on-failure:0
+
+  speedtest-backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    image: therenoth234/speedtest-backend:latest
+    env_file: ./.env
+    network_mode: "host"
+    volumes:
+      - /mnt/g/developement/speedtest/log:/app/log
+    restart: on-failure:0
