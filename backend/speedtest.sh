@@ -1,16 +1,4 @@
 #!/usr/bin/env bash
-while true; do
-  ping -c 4 1.1.1.1
-  status=$?
-  stime=60
-  if [ "$status" -gt 0 ]; then
-    echo "No internet connection detected. Sleeping for $stime seconds."
-    sleep  $stime
-  elif [ "$status" -eq 0 ]; then
-    echo "Internet connection detected. Proceeding with speedtest."
-    break
-  fi
-done
 LOG_FILE="/app/log/ookla_speedtest_log.csv"
 echo "Writing to log file at: $LOG_FILE"
 while true; do
@@ -26,11 +14,6 @@ while true; do
   if [ -z "$SERVER_ID" ]; then
     speedtest  --accept-license --accept-gdpr --format=csv | tail -n 1 >> "$LOG_FILE"
   else
-    if [[ "$SERVER_ID" =~ ^[0-9]+$ ]]; then
-      speedtest  --accept-license --accept-gdpr -s "$SERVER_ID" --format=csv | tail -n 1 >> "$LOG_FILE"
-    else
-      echo "Error: SERVER_ID must be a number. Current value: '$SERVER_ID'"
-      exit
-    fi
+    speedtest  --accept-license --accept-gdpr -s "$SERVER_ID" --format=csv | tail -n 1 >> "$LOG_FILE"
   fi
 done
