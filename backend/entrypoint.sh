@@ -8,6 +8,18 @@ if [ ! -f "$LOG_FILE" ]; then
 fi
 if [ "$ACCEPT_EULA" == "true" ] && [ "$ACCEPT_GDPR" == "true" ] && [ "$ACCEPT_TERMS" == "true" ]; then
   echo "All required agreements accepted. Starting speedtest script."
+  while true; do
+    ping -c 4 1.1.1.1
+    status=$?
+    stime=60
+    if [ "$status" -gt 0 ]; then
+      echo "No internet connection detected. Sleeping for $stime seconds."
+      sleep  $stime
+    elif [ "$status" -eq 0 ]; then
+      echo "Internet connection detected. Proceeding with speedtest."
+      break
+  fi
+  done
   if [ -z "$SERVER_ID" ]; then
     echo "No SERVER_ID provided. Running speedtest with default server selection."
   elif [[ "$SERVER_ID" =~ ^[0-9]+$ ]]; then
