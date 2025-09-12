@@ -10,6 +10,11 @@ if [ "$ACCEPT_EULA" == "true" ] && [ "$ACCEPT_GDPR" == "true" ] && [ "$ACCEPT_TE
   echo "All required agreements accepted. Starting speedtest script."
   if [ -z "$SERVER_ID" ]; then
     echo "No SERVER_ID provided. Running speedtest with default server selection."
+  elif [[ "$SERVER_ID" =~ ^[0-9]+$ ]]; then
+    echo "Using SERVER_ID: $SERVER_ID"
+  else
+    echo "Error: SERVER_ID must be a number. Current value: '$SERVER_ID'"
+    exit
   fi
   ./speedtest.sh
 else
