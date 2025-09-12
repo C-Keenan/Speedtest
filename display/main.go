@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
+	"golang.org/x/exp/slices"
 )
 
 type Result struct {
@@ -131,6 +132,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 	
+	slices.Reverse(results)
+
 	log.Printf("Successfully processed %d data rows for display.", len(results))
 	
 	pageData := PageData{Results: results}
