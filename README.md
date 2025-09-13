@@ -7,6 +7,8 @@ If you have any questions please reach out to dev+speedtest-questions@lollypopst
 
 I am self-taught and still learning to code and I do utilize AI a bit to troubleshoot or provide copy/paste output from time to time as my wrists seize up at the best of times from typing too much. All code is tested manually the same way I would expect it to be run (in docker, in this case) and has NOT been tested in any other scenarios. Feel free to test your preferred scenario and report back your findings. I will keep a list of tested run scenarios in this readme below the download link for the speedtest binary. You can report your tests to dev+speedtest-runtime-tests@lollypopstealer.com with a youtube video link, link shorteners will be ignored and all rules from above also apply here, confirming the test run and a detailed list of steps to repeat the process as well as what you'd like to be reffered to as so I can give you credit. I will verify your findings myself and add your name as a tester and as contributer if your code (should you submit any (also put in the email)) leads towards stability or other improvements.
 
+Should Ookla or their subsidiary see this and reachout, please send your message to a folder verifying the subject "genre", i.e. ookla-legal for legal, ookla-changes for changes, etc. I look forward to your potential cooperation in this fun project I'm doing to learn and improve the lives of others.
+
 ## Speedtest binary download link
 [Download the Ookla Speedtest CLI Binary for your system](https://www.speedtest.net/apps/cli)
 
