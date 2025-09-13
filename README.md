@@ -11,11 +11,12 @@ I am self-taught and still learning to code and I do utilize AI a bit to trouble
 [Download the Ookla Speedtest CLI Binary for your system](https://www.speedtest.net/apps/cli)
 
 ## Updates
-*Nothing to see hear yet*
+- Show the average daily speed and ping times in a small table at the top (helps evaluate ISP/Internet downtime or other hiccups at a glance)
+- Added the average monthly and yearly speed and latency values
+- Results table now filterable and hide-able
 
 ## Future Plans
 - Add a button on the webpage to manually run a speedtest and when finished reload the page
-- Show the average daily speed and ping times in a small table at the top (helps evaluate ISP downtime or hiccups at a glance)
 
 ## Tested Run Scenarios
 - Docker: Tested, Running
