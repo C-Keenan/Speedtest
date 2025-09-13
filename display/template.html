@@ -6,19 +6,199 @@
 </head>
 <body>
     <h1>Ookla Speedtest Results</h1>
+    <div class="averages-tables">
+        {{template "YearlyAveragesTable" .}}
+        {{template "MonthlyAveragesTable" .}}
+        {{template "DailyAveragesTable" .}}
+    </div>
+    
+    <div class="content-container">
+        <button id="toggleTableBtn">Toggle Individual Results</button>
+
+        <div id="filterAndTable" style="display: none;">
+            <!-- Filter Form -->
+            <form id="filterForm">
+                <label for="year">Year:</label>
+                <select id="year" name="year">
+                    <option value="">Any</option>
+                    {{range .FilterData.Years}}
+                    <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                </select>
+
+                <label for="month">Month:</label>
+                <select id="month" name="month">
+                    <option value="any">Any</option>
+                    {{range .FilterData.Months}}
+                    <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                </select>
+
+                <label for="day">Day:</label>
+                <select id="day" name="day">
+                    <option value="any">Any</option>
+                    {{range .FilterData.Days}}
+                    <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                </select>
+                <button type="submit">Filter</button>
+            </form>
+
+            {{template "IndividualResultsTable" .}}
+        </div>
+    </div>
+    <script>
+        function setTimedRefresh() {
+        const now = new Date();
+        const nextRefresh = new Date();
+            
+        nextRefresh.setHours(now.getHours() + 1);
+        nextRefresh.setMinutes(10);
+        nextRefresh.setSeconds(0);
+        nextRefresh.setMilliseconds(0);
+
+        if (nextRefresh.getTime() <= now.getTime()) {
+            nextRefresh.setHours(nextRefresh.getHours() + 1);
+        }
+
+        const timeout = nextRefresh.getTime() - now.getTime();
+            
+        console.log(`Page will refresh in ${timeout / 1000} seconds at ${nextRefresh.toLocaleTimeString()}`);
+            
+        setTimeout(() => {
+            window.location.reload(true);
+        }, timeout);
+        }
+
+        setTimedRefresh();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('toggleTableBtn');
+            const filterAndTable = document.getElementById('filterAndTable');
+            const filterForm = document.getElementById('filterForm');
+
+            // Set initial state from localStorage or default to hidden
+            const isVisible = localStorage.getItem('individualTableVisible') === 'true';
+            filterAndTable.style.display = isVisible ? 'block' : 'none';
+
+            toggleBtn.addEventListener('click', () => {
+                const isHidden = filterAndTable.style.display === 'none';
+                filterAndTable.style.display = isHidden ? 'block' : 'none';
+                localStorage.setItem('individualTableVisible', isHidden);
+            });
+
+            filterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const year = document.getElementById('year').value;
+                const month = document.getElementById('month').value;
+                const day = document.getElementById('day').value;
+
+                let url = window.location.pathname;
+                const params = new URLSearchParams();
+                if (year) params.append('year', year);
+                if (month && month !== 'any') params.append('month', month);
+                if (day && day !== 'any') params.append('day', day);
+                window.location.href = `${url}?${params.toString()}`;
+            });
+        });
+    </script>
+</body>
+
+{{define "DailyAveragesTable"}}
+<div class="averages-container">
+    <h2>Daily Averages</h2>
     <table>
         <thead>
             <tr>
-                <th>Server Name & Location</th>
+                <th>Date</th>
+                <th>Avg DL (Mbps)</th>
+                <th>Avg UL (Mbps)</th>
+                <th>Avg Ping (ms)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .DailyAverages}}
+            <tr>
+                <td>{{.Period}}</td>
+                <td>{{printf "%.2f" .AvgDownload}}</td>
+                <td>{{printf "%.2f" .AvgUpload}}</td>
+                <td>{{printf "%.2f" .AvgPing}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+{{end}}
+
+{{define "MonthlyAveragesTable"}}
+<div class="averages-container">
+    <h2>Monthly Averages</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Avg DL (Mbps)</th>
+                <th>Avg UL (Mbps)</th>
+                <th>Avg Ping (ms)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .MonthlyAverages}}
+            <tr>
+                <td>{{.Period}}</td>
+                <td>{{printf "%.2f" .AvgDownload}}</td>
+                <td>{{printf "%.2f" .AvgUpload}}</td>
+                <td>{{printf "%.2f" .AvgPing}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+{{end}}
+
+{{define "YearlyAveragesTable"}}
+<div class="averages-container">
+    <h2>Yearly Averages</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Avg DL (Mbps)</th>
+                <th>Avg UL (Mbps)</th>
+                <th>Avg Ping (ms)</th>
+            </tr>
+</thead>
+        <tbody>
+            {{range .YearlyAverages}}
+            <tr>
+                <td>{{.Period}}</td>
+                <td>{{printf "%.2f" .AvgDownload}}</td>
+                <td>{{printf "%.2f" .AvgUpload}}</td>
+                <td>{{printf "%.2f" .AvgPing}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+{{end}}
+
+{{define "IndividualResultsTable"}}
+<div class="individual-results-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Server Sponsor & Location</th>
                 <th>Download (Mbps)</th>
                 <th>Upload (Mbps)</th>
                 <th>Ping (ms)</th>
             </tr>
         </thead>
         <tbody>
-            {{range .Results}}
+            {{range .IndividualResults}}
             <tr>
-                <td>{{.ServerNameandLocation}}</td>
+                <td>{{.Timestamp}}</td>
+                <td>{{.ServerName}}</td>
                 <td>{{printf "%.2f" .DownloadMbps}}</td>
                 <td>{{printf "%.2f" .UploadMbps}}</td>
                 <td>{{printf "%.2f" .PingMs}}</td>
@@ -26,5 +206,5 @@
             {{end}}
         </tbody>
     </table>
-</body>
-</html>
+</div>
+{{end}}
