@@ -63,3 +63,16 @@ tr:hover {
 .individual-results-container {
     margin-top: 1em;
 }
+button {
+  padding: 10px 20px;
+  background-color: rgb(75, 92, 112);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#filterForm {
+  color: rgb(255, 255, 255);
+  background-color: #333333;
+  border-color: #2a2a2a;
+}
