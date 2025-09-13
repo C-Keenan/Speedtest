@@ -2,6 +2,13 @@
 LOG_FILE="/app/log/ookla_speedtest_log.csv"
 HEADERS="server name,server id,idle latency,idle jitter,packet loss,download,upload,download bytes,upload bytes,share url,download server count,download latency,download latency jitter,download latency low,download latency high,upload latency,upload latency jitter,upload latency low,upload latency high,idle latency low,idle latency high,timestamp"
 
+SPDTSTLOC="/usr/local/bin/speedtest"
+
+if [ ! -x "$SPDTSTLOC" ]; then
+  echo "Error: Speedtest binary not found or not executable at $SPDTSTLOC. Please ensure the binary is present and has execute permissions. If you're running this as a docker container, ensure the volume is mounted correctly."
+  exit 0
+fi
+
 if [ ! -f "$LOG_FILE" ]; then
   echo "$HEADERS" > "$LOG_FILE"
   chmod 664 "$LOG_FILE"
