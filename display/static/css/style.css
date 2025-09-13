@@ -1,0 +1,65 @@
+body { 
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #E0E0E0;
+}
+h1 {
+  color: #bb86fc;
+  position: top;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: #1E1E1E;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333333;
+}
+th {
+  background-color: #333333;
+  color: #FFFFFF;
+}
+tr:hover {
+  background-color: #2a2a2a;
+}
+.averages-container {
+  margin: 20px;
+  float: right;
+  flex: 1;
+  min-width: 300px;
+}
+.averages-container table {
+  width: auto;
+}
+.content-container {
+  margin: 20px;
+}
+.averages-tables {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 2em;
+    flex-wrap: wrap;
+}
+.content-container {
+    margin-top: 2em;
+}
+#filterForm {
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+#filterForm select, #filterForm button {
+    padding: 8px;
+    margin-right: 10px;
+}
+.individual-results-container {
+    margin-top: 1em;
+}
