@@ -23,4 +23,5 @@ services:
     network_mode: "host"
     volumes:
       - /mnt/g/developement/speedtest/log:/app/log
+      - /mnt/g/developement/speedtest/binaries/ookla:/usr/local/bin
     restart: on-failure:0
