@@ -70,6 +70,7 @@ func waitForFile(filePath string, timeout time.Duration) error {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	const csvFilePath = "/app/log/ookla_speedtest_log.csv"
+	const expectedFields = 22
 	
 	file, err := os.Open(csvFilePath)
 	if err != nil {
@@ -111,7 +112,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	selectedDay := r.URL.Query().Get("day")
 
 	for i, record := range records[1:] {
-		if len(record) < 22 {
+		if len(record) != expectedFields {
 			log.Printf("Skipping malformed row (line %d, expected 22 fields, got %d): %v", i+2, len(record), record)
 			continue
 		}
