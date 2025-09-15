@@ -6,7 +6,7 @@ services:
     image: therenoth234/speedtest-display:latest
     container_name: speedtest-display
     ports:
-      - "8084:8080"
+      - "8080:8080"
     volumes:
       - /mnt/g/developement/speedtest/log:/app/log
     depends_on:
@@ -23,5 +23,5 @@ services:
     network_mode: "host"
     volumes:
       - /mnt/g/developement/speedtest/log:/app/log
-      - /mnt/g/developement/speedtest/binaries/ookla:/usr/local/bin
+      - /mnt/g/developement/speedtest/binaries/ookla:/usr/local/bin:ro
     restart: on-failure:0
